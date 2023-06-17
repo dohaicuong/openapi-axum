@@ -3,9 +3,8 @@ use tower_http::{compression::CompressionLayer, cors::CorsLayer};
 
 mod api;
 mod config;
-mod logging;
-
 mod graceful_shutdown;
+mod logging;
 
 #[tokio::main]
 async fn main() {
