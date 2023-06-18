@@ -1,8 +1,8 @@
 use axum::Router;
 
 pub mod healthz;
-pub mod meta;
+pub mod root;
 
 pub fn router() -> Router {
-    Router::new().merge(meta::route()).merge(healthz::route())
+    Router::new().merge(root::route()).merge(healthz::route())
 }

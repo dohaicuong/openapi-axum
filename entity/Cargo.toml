@@ -1,0 +1,14 @@
+[package]
+name = "entity"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "entity"
+path = "src/mod.rs"
+
+[dependencies]
+axum = { version = "0.6.18", features = ["macros"] }
+
+[dependencies.sea-orm]
+version = "0.11.3"

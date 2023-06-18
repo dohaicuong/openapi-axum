@@ -5,7 +5,7 @@ use utoipa::ToSchema;
 use crate::config::Config;
 
 #[derive(Serialize, ToSchema)]
-pub struct AppMeta {
+pub struct AppMetaPayload {
     name: String,
     version: String,
 }
@@ -15,11 +15,11 @@ pub struct AppMeta {
     path = "/",
     tag = "meta",
     responses(
-        (status = 200, description = "Service metadata", body = AppMeta)
+        (status = 200, description = "Service metadata", body = AppMetaPayload)
     )
 )]
-pub async fn handler(Extension(config): Extension<Config>) -> Json<AppMeta> {
-    Json(AppMeta {
+pub async fn handler(Extension(config): Extension<Config>) -> Json<AppMetaPayload> {
+    Json(AppMetaPayload {
         name: config.package.name,
         version: config.package.version,
     })

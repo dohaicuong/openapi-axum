@@ -9,14 +9,23 @@ use utoipa::{
 use utoipa_swagger_ui::SwaggerUi;
 
 mod meta;
+mod post;
 
 pub fn router() -> Router {
     #[derive(OpenApi)]
     #[openapi(
-        paths(meta::meta::handler, meta::healthz::handler),
-        components(schemas(meta::meta::AppMeta)),
-        modifiers(),
-        tags()
+        paths(
+            meta::root::handler,
+            meta::healthz::handler,
+            post::get_posts::handler,
+            post::create_post::handler,
+        ),
+        components(schemas(
+            meta::root::AppMetaPayload,
+            post::PostPayload,
+            post::create_post::CreatePostInput,
+        )),
+        modifiers(&SecurityAddon)
     )]
     struct ApiDoc;
 
@@ -37,4 +46,5 @@ pub fn router() -> Router {
         .merge(SwaggerUi::new("/docs").url("/docs/openapi.json", ApiDoc::openapi()))
         // merge api routes
         .merge(meta::router())
+        .merge(post::router())
 }
